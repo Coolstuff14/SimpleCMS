@@ -5,7 +5,7 @@
 	// Check to see if this run of the script was caused by our login submit button being clicked.
 	if (isset($_POST['loginSubmit'])) {
 
-    include_once 'mysql.php';
+    include_once 'db.php';
 		// Also check that our email address and password were passed along. If not, jump
 		// down to our error message about providing both pieces of information.
 		if (isset($_POST['userName']) && isset($_POST['userPassword'])) {
@@ -13,11 +13,7 @@
 			$pass = $_POST['userPassword'];
 
 
-      // Connect to the database
-      $connection = db_connect();
-
-      $rows = db_select("SELECT uid,username,password,fullname FROM user WHERE username='".$userN."' ");
-      if(($rows !== false)&&(count($rows) > 0)) {
+      $rows = dbcall("SELECT uid,username,password,fullname FROM user WHERE username='".$userN."' ");
         	if($rows[0]['password'] == $pass){
 							//Redirect to admin portal
 							$_SESSION['adminAuth'] = 'true';
@@ -25,18 +21,13 @@
 							$_SESSION['name'] = $rows[0]['fullname'];
 
 							// Once the sessions variables have been set, redirect them to the landing page / home page.
-							header('location: ../admin.php');
+							header('Location: ' . $_SERVER['HTTP_REFERER']);
 		          exit;
 
 					}else{
 						$error = "Password compare issue";
 					}
-			}
-			else {
-				$error = "Database query issue or bad username ";
-			}
-		}
-		else {
+			}else {
 			$error = "Username and password not grabbed.";
 		}
 	}
