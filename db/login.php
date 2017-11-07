@@ -8,9 +8,15 @@
     include_once 'db.php';
 		// Also check that our email address and password were passed along. If not, jump
 		// down to our error message about providing both pieces of information.
+try{
 		if (isset($_POST['userName']) && isset($_POST['userPassword'])) {
 			$userN = $_POST['userName'];
 			$pass = $_POST['userPassword'];
+
+			//Check for valid entry or else login will occurr due to error
+			if ($userN == "" || $pass==""){
+				throw new Exception('No Username or Password');
+			}else{
 
 
       $rows = dbcall("SELECT uid,username,password,fullname FROM user WHERE username='".$userN."' ");
@@ -25,12 +31,18 @@
 		          exit;
 
 					}else{
-						$error = "Password compare issue";
-					}
-			}else {
-			$error = "Username and password not grabbed.";
+						throw new Exception('Username or Password Incorrect');
+
+			}}}else {
+				throw new Exception('Username Error!');
 		}
-	}
+
+}catch(Exception $e){
+	$error = $e->getMessage();
+	$_SESSION['error'] = $error;
+	header('Location: ' . $_SERVER['HTTP_REFERER']);
+	exit;
+}
+}
 
 ?>
-<?=$error?>

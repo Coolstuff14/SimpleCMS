@@ -1,13 +1,6 @@
 <?php
   //If logged in allow editing
-  session_start();
-  if(isset($_SESSION['adminAuth'])){
-    //Logged in
-    $edtID = "edit";
-  }else{
-    //Not logged in
-    $edtID = "";
-  }
+  include_once 'modules/seshCheck.php';
 
   //NEW BLOG POST
   include_once 'db/db.php';
@@ -80,7 +73,7 @@
     <link href="bower\bootstrap\dist\css\bootstrap.min.css" rel="stylesheet">
     <link href="css/clean-blog.min.css" rel="stylesheet">
     <link href="bower\Ionicons\css\ionicons.min.css" rel="stylesheet">
-    <link href="css/login-modal.css" rel="stylesheet">
+    <link href="css/modals.css" rel="stylesheet">
 
     <!--Custom Fonts-->
     <link href="bower\font-awesome\css\font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -113,7 +106,7 @@
 
                 <?php if($edtID=="edit"){echo'
                 <li><a class="navbar-brand" href="post.php?blogid=newpost"><i class="ion-compose"> New Post</i></a></li>
-                <li><a class="navbar-brand btn iframe-btn" href="filemanager/filemanager/dialog.php?type=1&field_id=headerpic&relative_url=0"><i class="ion-ios-camera"> Edit Picture</i></a></li>
+                <li><a class="navbar-brand btn iframe-btn" href="filemanager/filemanager/dialog.php?type=1&field_id=headerpic&relative_url=0&lang=en_EN"><i class="ion-ios-camera"> Edit Picture</i></a></li>
                 <input hidden id="headerpic" type="text" value="" > <!--Used for filemanager to save chosen file to-->
                 ';}?>
                 <li><a class="navbar-brand" href="#">Next Post <i class="ion-arrow-right-c"></i></a></li>
@@ -145,77 +138,58 @@
     </article>
     <hr>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <ul class="list-inline text-center">
-                        <li>
-                            <a href="#">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                        </li>
-                    </ul>
-                    <p class="copyright text-muted">Copyright &copy; Jake Lee 2016</p>
-                    <p class="copyright text-muted">
-                      <?php
-                        //Login button
-                        if($edtID=="edit"){
-                          echo "<a href='db/logout.php'>Logout</a></p>
-                          <form method='POST' action='modules/deletePost.php'>
-                          <input hidden type='text' name='blogid' value='".$blogid."'>
-                          <button type='submit' name='deletepost' class='btn btn-danger'>Delete Post</button>
-                          </form>
-                          ";
-                        }else{
-                          echo "<a href='#' data-toggle='modal' data-target='#login-modal'>Login</a></p>";
-                        }
+  <?php include_once 'modules/footer.php';
+    if($edtID=="edit"){
+      echo "<button data-toggle='modal' data-target='#delete-modal' class='btn btn-danger'>Delete Post</button>";
+    }
+  ?>
 
+  <!--Delete Post Modal-->
+    <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog"  aria-hidden="true">
+  <div class="deletemodal-container">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Delete Post</h4>
+      </div>
+      <div class="modal-body">
 
-                  ?>
-                </div>
-            </div>
-        </div>
-    </footer>
+        <p>Are you sure you want to delete post?<br>
+          <form method='POST' action='modules/deletePost.php'>
+          <input hidden type='text' name='blogid' value='<?=$blogid?>'>
+          <button type="submit" name='deletepost' class="btn btn-danger">Yes</button>
+          <button type="button" class="btn btn-success" data-dismiss="modal">No</button></p>
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
 
-    <!--Login Modal-->
-    <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-    	  <div class="modal-dialog">
-				<div class="loginmodal-container">
-					<h1>Login to Your Account</h1><br>
-				  <form method="POST" action="db/login.php">
-					<input type="text" name="userName" id="userName" placeholder="Username">
-					<input type="password" name="userPassword" id="userPassword" placeholder="Password">
-					<input type="submit" name="loginSubmit" class="login loginmodal-submit" value="Login">
-				  </form>
-				</div>
-			</div>
-		  </div>
+  </div>
+</div>
+
 
     <!--Required Javascript-->
     <script src="bower\jquery\dist\jquery.min.js"></script>
     <script src="bower\bootstrap\dist\js\bootstrap.min.js"></script>
     <script src="js/clean-blog.min.js"></script>
+
+    <!--Handle login errors-->
+    <?php
+     if (isset($_SESSION['error'])){
+       $error = $_SESSION['error'];
+       echo '<script src="bootstrap-notify\bootstrap-notify.min.js"></script>';
+       echo"
+       <script>
+       $( document ).ready(function() {
+       $.notify({message:'$error'},{type: 'danger'});});
+       $('#login-modal').modal('toggle');
+       </script>";
+       unset($_SESSION['error']);
+     }
+     ?>
 
     <!--Admin Only Required Scripts
         Onyl Include if needed to save load time-->

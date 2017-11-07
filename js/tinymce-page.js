@@ -16,14 +16,28 @@ tinymce.init({
     text: "Save",
     icon: 'save',
     onclick: function () {
-      //Save page content to database by passing to php though AJAX
-      $.ajax({
-              type: "POST",
-              url: 'modules/savepost.php',
-              data: "savepage=" + encodeURIComponent(tinyMCE.get('edit').getContent())+"&"+ (window.location.search.substr(1) + "&title=" + $("#titletext").text()),
-              success: function(data)
-              {$.notify({message:'Page Saved!'},{type: 'success'});}
-            });
+      //Varables
+      var attr = $('br').attr('data-mce-bogus');
+      var stuffs = tinyMCE.get('edit').getContent();
+
+      console.log(stuffs);
+
+      //Check for blank content
+      if(typeof attr !== typeof undefined && attr !== false){
+        $.notify({message:'Fields Can Not Be Empty'},{type: 'danger'});
+        var und = tinymce.get('edit').undoManager.hasUndo();
+        tinymce.activeEditor.undoManager.undo();
+      }else{
+        //Save page content to database by passing to php though AJAX
+        $.ajax({
+                type: "POST",
+                url: 'modules/savepost.php',
+                data: "savepage=" + encodeURIComponent(tinyMCE.get('edit').getContent())+"&"+ (window.location.search.substr(1) + "&title=" + $("#titletext").text()),
+                success: function(data)
+                {$.notify({message:'Page Saved!'},{type: 'success'});}
+              });
+      }
+
           }
         });
       }

@@ -19,7 +19,6 @@
     "jQuery": "^3.1.1",
     "bootstrap": "boostrap#^3.3.7",
     "font-awesome": "fontawesome#^4.6.3",
-    "AdminLTE": "adminlte#^2.3.6",
     "Ionicons": "ionicons#^2.0.1"
   }
 }
