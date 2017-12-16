@@ -10,8 +10,8 @@ function db_connect() {
     // Try and connect to the database, if a connection has not been established yet
     if(!isset($connection)) {
         // Load configuration as an array. Use the actual location of your configuration file
-       $config = parse_ini_file('config.ini');
-       $connection = odbc_connect($config['dns'],$config['username'],$config['password']);
+       $config = parse_ini_file('config\config.ini');
+       $connection = @mysqli_connect($config['dns'],$config['username'],$config['password'],'simplecms');
     }
 
     if (!$connection){
@@ -26,11 +26,11 @@ function db_connect() {
 function dbcall($sql){
   $rows = array();
   $connection = db_connect(); //Connect to DB
-  $result = odbc_exec($connection,$sql); //Execute Sql on DB
+  $result = mysqli_query($connection,$sql); //Execute Sql on DB
 
   //Check if there are results and add them to an array
   if(($result !== false)&&(count($result) > 0)) {
-  while($row = @odbc_fetch_array($result)){
+  while($row = mysqli_fetch_array($result)){
     array_push($rows, $row); //Array of associative arrays
   }
 
