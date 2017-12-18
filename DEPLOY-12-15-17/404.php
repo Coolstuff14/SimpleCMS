@@ -26,7 +26,7 @@ h1 {
   width: 100%;
   text-align: center;
   font-family: "Allerta Stencil", Sans-serif;
-  font-size: 400px;
+  font-size: 40vh; 
 }
 </style>
 </head>
