@@ -20,8 +20,8 @@
     $rtrn = dbcall("SELECT blogID FROM blogposts WHERE datestamp = (SELECT MAX(datestamp) FROM blogposts)");
     if(($rtrn !== false)&&(count($rtrn) > 0)) {
       $blogid = $rtrn[0]['blogID'];
-      $file = "blogposts\p".$blogid.".html";
-      if (!copy('blogposts\new.html', $file)) {
+      $file = "".$_SERVER['DOCUMENT_ROOT']."/blogposts/p".$blogid.".html";
+      if (!copy(''.$_SERVER['DOCUMENT_ROOT'].'/blogposts/new.html', $file)) {
         echo "failed to copy $file.n";
       }
       header("location: post.php?blogid=".$blogid."");
@@ -45,7 +45,7 @@
   }
 
   if(isset($_GET["blogid"])){
-    $my_file = 'blogposts/p'.$blogid.'.html';
+    $my_file = ''.$_SERVER['DOCUMENT_ROOT'].'/blogposts/p'.$blogid.'.html';
     $currentUrl = 'post.php?blogid='.$blogid;
     if(file_exists($my_file)){
       $handle = fopen($my_file, 'r');
