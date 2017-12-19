@@ -27,7 +27,7 @@
       header("location: post.php?blogid=".$blogid."");
     }
   }else{
-    header("Location: bloghome.php");
+    header("Location: /projects");
   }
 }
 
@@ -40,7 +40,7 @@
     $tags = $rows[0]['tags'];
     $headerpic = $rows[0]['pic'];
   }else{
-    header("location: 404.php");
+    header("location: /404.php");
     die();
   }
 
@@ -51,7 +51,7 @@
       $handle = fopen($my_file, 'r');
       $content = fread($handle,filesize($my_file));
     }else{
-      header("location: 404.php");
+      header("location: /404.php");
       die();
     }
   }
@@ -70,13 +70,13 @@
     <title><?=$title?></title>
 
     <!--Stylesheets-->
-    <link href="bower\bootstrap\dist\css\bootstrap.min.css" rel="stylesheet">
-    <link href="css\clean-blog.min.css" rel="stylesheet">
-    <link href="bower\Ionicons\css\ionicons.min.css" rel="stylesheet">
-    <link href="css\modals.css" rel="stylesheet">
+    <link href="/bower/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/clean-blog.min.css" rel="stylesheet">
+    <link href="/bower/Ionicons/css/ionicons.min.css" rel="stylesheet">
+    <link href="/css/modals.css" rel="stylesheet">
 
     <!--Custom Fonts-->
-    <link href="bower\font-awesome\css\font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/bower/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 
@@ -99,7 +99,7 @@
             </div>
             <div class="navbar-collapse collapse">
               <ul class="nav navbar-nav navbar-left">
-                  <li><a class="navbar-brand" href="projects.php"><i class="ion-arrow-left-c"></i> Home</a></li>
+                  <li><a class="navbar-brand" href="/projects"><i class="ion-arrow-left-c"></i> Home</a></li>
               </ul>
               <ul class="nav navbar-nav navbar-right">
                 <!--Only include edit button in edit mode-->
@@ -156,7 +156,7 @@
       <div class="modal-body">
 
         <p>Are you sure you want to delete post?<br>
-          <form method='POST' action='modules/deletePost.php'>
+          <form method='POST' action='/modules/deletePost.php'>
           <input hidden type='text' name='blogid' value='<?=$blogid?>'>
           <button type="submit" name='deletepost' class="btn btn-danger">Yes</button>
           <button type="button" class="btn btn-success" data-dismiss="modal">No</button></p>
@@ -172,15 +172,15 @@
 
 
     <!--Required Javascript-->
-    <script src="bower\jquery\dist\jquery.min.js"></script>
-    <script src="bower\bootstrap\dist\js\bootstrap.min.js"></script>
-    <script src="js\clean-blog.min.js"></script>
+    <script src="/bower/jquery/dist/jquery.min.js"></script>
+    <script src="/bower/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/js/clean-blog.min.js"></script>
 
     <!--Handle login errors-->
     <?php
      if (isset($_SESSION['error'])){
        $error = $_SESSION['error'];
-       echo '<script src="js\bootstrap-notify.min.js"></script>';
+       echo '<script src="/js/bootstrap-notify.min.js"></script>';
        echo"
        <script>
        $( document ).ready(function() {
@@ -194,10 +194,10 @@
     <!--Admin Only Required Scripts
         Onyl Include if needed to save load time-->
     <?php if($edtID=="edit"){echo'
-    <script type="text/javascript" src="fancybox\jquery.fancybox.js"></script>
-    <script src="bower\tinymce\tinymce.min.js"></script>
-    <script src="js\tinymce-page.js"></script>
-    <script src="js\bootstrap-notify.min.js"></script>
+    <script type="text/javascript" src="/fancybox/jquery.fancybox.js"></script>
+    <script src="/bower/tinymce/tinymce.min.js"></script>
+    <script src="/js/tinymce-page.js"></script>
+    <script src="/js/bootstrap-notify.min.js"></script>
     ';}?>
 
 </body>

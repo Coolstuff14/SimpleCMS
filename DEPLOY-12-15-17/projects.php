@@ -4,13 +4,13 @@
     <meta charset="utf-8">
     <title>Projects</title>
       <link href="https://fonts.googleapis.com/css?family=Loved+by+the+King" rel="stylesheet">
-      <link rel="stylesheet" type="text/css" href="css/projectMain.css" />
+      <link rel="stylesheet" type="text/css" href="/css/projectMain.css" />
   </head>
   <body>
     <div class="wrapper">
       <div class="header">
-        <a href="index.html"><img src="img/home-sml.png" class="homebtn"></a>
-        <img src="img/projectbanner-sml.png" class="banner">
+        <a href="index"><img src="/img/home-sml.png" class="homebtn"></a>
+        <img src="/img/projectbanner-sml.png" class="banner">
       </div>
       <ul>
     <!-- <li>

@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Allerta+Stencil">
 <style>
 body{
-  background: url(img/404.jpg) no-repeat center center fixed;
+  background: url(/img/404.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -26,12 +26,20 @@ h1 {
   width: 100%;
   text-align: center;
   font-family: "Allerta Stencil", Sans-serif;
-  font-size: 40vh; 
+  font-size: 40vh;
+}
+img{
+  float: left;
+  top: 0;
+  height: 100%;
+  width: 10vh;
+
 }
 </style>
 </head>
 
 <body>
+  <a href="/index"><img src="/img/airplane-back.png" /></a>
   <h1>404</h1>
 </body>
 </html>

@@ -8,7 +8,7 @@
                   <?php
                     //Login button
                     if($edtID=="edit"){
-                      echo "<a href='db/logout.php'>Logout</a></p>";
+                      echo "<a href='/db/logout.php'>Logout</a></p>";
                     }else{
                       echo "<a href='#' data-toggle='modal' data-target='#login-modal'>Login</a></p>";
                     }?>

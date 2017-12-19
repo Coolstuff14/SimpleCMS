@@ -6,7 +6,7 @@ foreach ($rows as $row){
 echo '
   <!--Blog Post-->
   <li>
-    <a href="post.php?blogid='.$row['blogID'].'">
+    <a href="/post.php?blogid='.$row['blogID'].'">
       <h2>'.$row['title'].'</h2>
       <p>~Posted on '.$datestamp.'</p>
     </a>
