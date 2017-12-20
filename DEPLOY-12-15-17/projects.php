@@ -9,7 +9,7 @@
   <body>
     <div class="wrapper">
       <div class="header">
-        <a href="index"><img src="/img/home-sml.png" class="homebtn"></a>
+        <a href="/"><img src="/img/home-sml.png" class="homebtn"></a>
         <img src="/img/projectbanner-sml.png" class="banner">
       </div>
       <ul>

@@ -39,7 +39,7 @@ img{
 </head>
 
 <body>
-  <a href="/index"><img src="/img/airplane-back.png" /></a>
+  <a href="/"><img src="/img/airplane-back.png" /></a>
   <h1>404</h1>
 </body>
 </html>
