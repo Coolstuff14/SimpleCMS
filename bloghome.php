@@ -10,7 +10,7 @@
     <div class="wrapper">
       <div class="header">
         <a href="home.php"><img src="img/home-sml.png" class="homebtn"></a>
-        <img src="img/projectbanner.png" class="banner">
+        <img src="img/projectbanner-sml.png" class="banner">
       </div>
       <ul>
     <!-- <li>

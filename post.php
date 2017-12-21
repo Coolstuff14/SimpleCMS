@@ -4,7 +4,7 @@
 
   //NEW BLOG POST
   include_once 'db/db.php';
-  $blogid = $_GET['blogid'];
+  $blogid = $_POST['blogid'];
 
   //Check for new post
   if($blogid=="newpost"){
@@ -44,7 +44,7 @@
     die();
   }
 
-  if(isset($_GET["blogid"])){
+  if(isset($_POST["blogid"])){
     $my_file = 'blogposts/p'.$blogid.'.html';
     $currentUrl = 'post.php?blogid='.$blogid;
     if(file_exists($my_file)){

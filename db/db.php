@@ -11,11 +11,11 @@ function db_connect() {
     if(!isset($connection)) {
         // Load configuration as an array. Use the actual location of your configuration file
        $config = parse_ini_file('config\config.ini');
-       $connection = @mysqli_connect($config['dns'],$config['username'],$config['password'],'simplecms');
+       $connection = @mysqli_connect($config['host'],$config['username'],$config['password'],$config['database']);
     }
 
     if (!$connection){
-     return 0;
+     return mysqli_connect_error();
     }
 
       return $connection;
@@ -26,11 +26,11 @@ function db_connect() {
 function dbcall($sql){
   $rows = array();
   $connection = db_connect(); //Connect to DB
-  $result = mysqli_query($connection,$sql); //Execute Sql on DB
+  $result = @mysqli_query($connection,$sql); //Execute Sql on DB
 
   //Check if there are results and add them to an array
   if(($result !== false)&&(count($result) > 0)) {
-  while($row = mysqli_fetch_array($result)){
+  while($row = @mysqli_fetch_assoc($result)){
     array_push($rows, $row); //Array of associative arrays
   }
 
