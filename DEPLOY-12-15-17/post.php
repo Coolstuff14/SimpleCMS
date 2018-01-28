@@ -29,16 +29,31 @@
   }else{
     header("Location: /projects");
   }
+}elseif (($blogid=="publish")&&($edtID=="edit")) {
+  //Publish Draft
+  $id = $_GET['id'];
+  dbcall("UPDATE blogposts SET draft=0 WHERE blogID=".$id."");
+  //$blogid = $id;
+  header("location: post.php?blogid=".$id."");
+  die();
+}elseif (($blogid=="depublish")&&($edtID=="edit")) {
+  //Depublish post
+  $id = $_GET['id'];
+  dbcall("UPDATE blogposts SET draft=1 WHERE blogID=".$id."");
+  //$blogid = $id;
+  header("location: post.php?blogid=".$id."");
+  die();
 }
 
   //Get info from database
-  $rows = dbcall("SELECT title,user,pic,datestamp,tags FROM blogposts WHERE blogID=".$blogid."");
+  $rows = dbcall("SELECT title,user,pic,datestamp,tags,draft FROM blogposts WHERE blogID=".$blogid."");
   if(($rows !== false)&&(count($rows) > 0)) {
     $fullname = $rows[0]['user'];
     $title = $rows[0]['title'];
     $datestamp = date( "m-d-Y", strtotime($rows[0]['datestamp']));
     $tags = $rows[0]['tags'];
     $headerpic = $rows[0]['pic'];
+    $draft = $rows[0]['draft'];
   }else{
     header("location: /404.php");
     die();
@@ -108,7 +123,14 @@
                 <li><a class="navbar-brand" href="post.php?blogid=newpost"><i class="ion-compose"> New Post</i></a></li>
                 <li><a class="navbar-brand btn iframe-btn" href="filemanager/filemanager/dialog.php?type=1&field_id=headerpic&relative_url=0&lang=en_EN"><i class="ion-ios-camera"> Edit Picture</i></a></li>
                 <input hidden id="headerpic" type="text" value="" > <!--Used for filemanager to save chosen file to-->
-                ';}?>
+                ';
+
+                if($draft==1){echo'
+                <li><a class="navbar-brand" href="post.php?blogid=publish&id='.$blogid.'"><i class="ion-upload"> Publish</i></a></li>
+                ';}else{echo'
+                <li><a class="navbar-brand" href="post.php?blogid=depublish&id='.$blogid.'"><i class="ion-upload"> Depublish</i></a></li>
+                ';}}
+                ?>
                 <!-- <li><a class="navbar-brand" href="#">Next Post <i class="ion-arrow-right-c"></i></a></li> -->
               </ul>
             </div>

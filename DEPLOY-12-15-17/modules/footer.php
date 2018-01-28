@@ -23,7 +23,7 @@
     <div class="modal-dialog">
     <div class="loginmodal-container">
       <h1>Login to Your Account</h1><br>
-      <form method="POST" action="db/login.php">
+      <form method="POST" action="../db/login.php">
       <input type="text" name="userName" id="userName" placeholder="Username">
       <input type="password" name="userPassword" id="userPassword" placeholder="Password">
       <input type="submit" name="loginSubmit" class="login loginmodal-submit" value="Login">
