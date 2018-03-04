@@ -2,6 +2,7 @@
 
 This is a very simple and fantastic CMS for loading, creating and modifying webpages. This was created for my personal website, as I didn't care for any of the available CMS. I wanted something as simple as logging in and clicking on the content I want to edit, so that's what Iv'e done! Its currently configured for a blog / projects page setup for my website but could be modified for your custom use easily. Keep in mind this is a very early stage of this system and lacks many many things.
 
+Large changes will occur on this branch!
 
 
 ------
@@ -16,5 +17,5 @@ This is a very simple and fantastic CMS for loading, creating and modifying webp
 - [ ] Load posts without GET and show in url bar as folders (better SEO)
 - [ ] 404 back to last location
 - [ ] Optimize for speed and SEO
-- [ ] Mobile support and optimization 
-- [ ] Admin page for user control and future feature 
+- [ ] Mobile support and optimization
+- [ ] Admin page for user control and future feature
